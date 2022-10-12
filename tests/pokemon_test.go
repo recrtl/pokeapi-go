@@ -314,3 +314,15 @@ func TestTypeFail(t *testing.T) {
 	assert.Equal(t, "", result.Name,
 		"Expect to receive an empty result.")
 }
+
+func TestPokemonLocationAreas(t *testing.T) {
+	t.Parallel()
+	result, _ := pokeapi.PokemonLocationAreas("1")
+	assert.NotZero(t, len(result))
+	assert.Equal(t, "cerulean-city-area", result[0].LocationArea.Name)
+	assert.NotZero(t, len(result[0].VersionDetails))
+	assert.NotZero(t, len(result[0].VersionDetails[0].EncounterDetails))
+	assert.NotZero(t, result[0].VersionDetails[0].EncounterDetails[0].MinLevel)
+	assert.NotZero(t, result[0].VersionDetails[0].EncounterDetails[0].MaxLevel)
+	assert.NotZero(t, result[0].VersionDetails[0].EncounterDetails[0].Chance)
+}

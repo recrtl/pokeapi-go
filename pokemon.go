@@ -54,6 +54,12 @@ func Pokemon(id string) (result structs.Pokemon, err error) {
 	return result, err
 }
 
+// PokemonLocationAreas returns a slice of PokemonLocationArea (by name or ID).
+func PokemonLocationAreas(id string) (result []structs.PokemonLocationArea, err error) {
+	err = do(fmt.Sprintf("pokemon/%s/encounters", id), &result)
+	return result, err
+}
+
 // PokemonColor returns a single Pokemon color (by name or ID).
 func PokemonColor(id string) (result structs.PokemonColor, err error) {
 	err = do(fmt.Sprintf("pokemon-color/%s", id), &result)

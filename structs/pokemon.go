@@ -271,6 +271,34 @@ type Pokemon struct {
 	Weight int `json:"weight"`
 }
 
+// PokemonLocationArea are where Pokémon can be found.
+type PokemonLocationArea struct {
+	LocationArea struct {
+		Name string `json:"name"`
+		Url  string `json:"url"`
+	} `json:"location_area"`
+	VersionDetails []struct {
+		EncounterDetails []struct {
+			Chance          int `json:"chance"`
+			ConditionValues []struct {
+				Name string `json:"name"`
+				Url  string `json:"url"`
+			} `json:"condition_values"`
+			MaxLevel int `json:"max_level"`
+			Method   struct {
+				Name string `json:"name"`
+				Url  string `json:"url"`
+			} `json:"method"`
+			MinLevel int `json:"min_level"`
+		} `json:"encounter_details"`
+		MaxChance int `json:"max_chance"`
+		Version   struct {
+			Name string `json:"name"`
+			Url  string `json:"url"`
+		} `json:"version"`
+	} `json:"version_details"`
+}
+
 // PokemonColor is a single Pokemon color.
 type PokemonColor struct {
 	ID    int    `json:"id"`
