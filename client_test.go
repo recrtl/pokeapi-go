@@ -13,6 +13,7 @@ var endpoint = "machine?offset=0&limit=1"
 var mockResource structs.Resource
 
 func TestSetCache(t *testing.T) {
+	t.Parallel()
 	_, found1 := c.Get(endpoint)
 	assert.Equal(t, false, found1,
 		"Expect to not have cached data before first call.")
@@ -35,6 +36,7 @@ func TestSetCache(t *testing.T) {
 }
 
 func TestClearCache(t *testing.T) {
+	t.Parallel()
 	_, found := c.Get(endpoint)
 	if !found {
 		_ = do(endpoint, &mockResource)
@@ -52,6 +54,7 @@ func TestClearCache(t *testing.T) {
 }
 
 func TestCustomExpiration(t *testing.T) {
+	t.Parallel()
 	ClearCache()
 	defaultExpire := time.Now().Add(defaultCacheSettings.MinExpire).Minute()
 	_ = do(endpoint, &mockResource)
@@ -69,6 +72,7 @@ func TestCustomExpiration(t *testing.T) {
 }
 
 func TestNoCache(t *testing.T) {
+	t.Parallel()
 	ClearCache()
 	_ = do(endpoint, &mockResource)
 	_, expires1, found1 := c.GetWithExpiration(endpoint)
