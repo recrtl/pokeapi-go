@@ -3,7 +3,7 @@ package pokeapi
 import (
 	"fmt"
 
-	"github.com/mtslzr/pokeapi-go/structs"
+	"github.com/recrtl/pokeapi-go/structs"
 )
 
 // Ability returns a single ability (by name or ID).

@@ -1,9 +1,9 @@
 # pokeapi-go
-![Actions](https://github.com/mtslzr/pokeapi-go/workflows/Actions/badge.svg)
+![Actions](https://github.com/recrtl/pokeapi-go/workflows/Actions/badge.svg)
 ![Release](https://img.shields.io/github/v/release/mtslzr/pokeapi-go)
 [![Codecov](https://img.shields.io/codecov/c/github/mtslzr/pokeapi-go.svg?style=flat)](https://codecov.io/gh/mtslzr/pokeapi-go)
-[![Go Report Card](https://goreportcard.com/badge/github.com/mtslzr/pokeapi-go?style=flat)](https://goreportcard.com/report/github.com/mtslzr/pokeapi-go)
-[![GoDoc](https://img.shields.io/badge/go-documentation-blue.svg?style=flat)](http://godoc.org/github.com/mtslzr/pokeapi-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/recrtl/pokeapi-go?style=flat)](https://goreportcard.com/report/github.com/recrtl/pokeapi-go)
+[![GoDoc](https://img.shields.io/badge/go-documentation-blue.svg?style=flat)](http://godoc.org/github.com/recrtl/pokeapi-go)
 [![License](https://img.shields.io/badge/license-mit-blue.svg?style=flat)](https://raw.githubusercontent.com/mtslzr/pokeapi-go/master/LICENSE)
 
 Wrapper for [Poke API](https://pokeapi.co), written in Go. *Supports PokeAPI v2.*
@@ -35,11 +35,11 @@ Full API documentation can be found at [Poke API](https://pokeapi.co/docs/v2.htm
 ## Getting Started
 
 ```bash
-go get github.com/mtslzr/pokeapi-go
+go get github.com/recrtl/pokeapi-go
 ```
 
 ```go
-import "github.com/mtslzr/pokeapi-go"
+import "github.com/recrtl/pokeapi-go"
 ```
 
 ## Endpoints

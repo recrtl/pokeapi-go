@@ -1,7 +1,7 @@
 GOCMD=go
 GOMOD=${GOCMD} mod
 GOTEST=${GOCMD} test
-PACKAGE=github.com/mtslzr/pokeapi-go
+PACKAGE=github.com/recrtl/pokeapi-go
 
 CODECOVFLAGS=-coverprofile=coverage.txt -covermode=atomic -coverpkg=${PACKAGE}
 
