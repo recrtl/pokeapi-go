@@ -1,6 +1,9 @@
 package pokeapi
 
-import "time"
+import (
+	"encoding/gob"
+	"time"
+)
 
 var CacheSettings = Settings{
 	CustomExpire: 0,
@@ -30,10 +33,14 @@ func ClearCache() {
 }
 
 // setCache adds new item to local cache.
-func setCache(endpoint string, body []byte) {
+func setCache(endpoint string, body string) {
 	if CacheSettings.CustomExpire != 0 {
 		c.Set(endpoint, body, CacheSettings.CustomExpire)
 	} else {
 		c.SetDefault(endpoint, body)
 	}
+}
+
+func init() {
+	gob.Register(map[string]interface{}{})
 }

@@ -1,7 +1,6 @@
 package pokeapi
 
 import (
-	"encoding/json"
 	"testing"
 	"time"
 
@@ -17,19 +16,17 @@ func TestSetCache(t *testing.T) {
 	assert.Equal(t, false, found1,
 		"Expect to not have cached data before first call.")
 
-	_ = do(endpoint, &mockResource)
-	cached2, expires2, found2 := c.GetWithExpiration(endpoint)
+	var resource1 structs.Resource
+	_ = do(endpoint, &resource1)
+	_, expires2, found2 := c.GetWithExpiration(endpoint)
 	assert.Equal(t, true, found2,
 		"Expect to have cached data after first call.")
 
-	_ = do(endpoint, &mockResource)
-	var cachedData structs.Resource
-	json.Unmarshal(cached2.([]byte), &cachedData)
-	cached3, expires3, _ := c.GetWithExpiration(endpoint)
-	assert.Equal(t, cachedData, mockResource,
+	var resource2 structs.Resource
+	_ = do(endpoint, &resource2)
+	_, expires3, _ := c.GetWithExpiration(endpoint)
+	assert.Equal(t, resource1, resource2,
 		"Expect data to match cached data.")
-	assert.Equal(t, cached2, cached3,
-		"Expect cached data to match previously-cached data.")
 	assert.Equal(t, expires2, expires3,
 		"Expect expiration times to match.")
 }
