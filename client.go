@@ -1,12 +1,11 @@
 package pokeapi
 
 import (
-	"bytes"
-	"encoding/gob"
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"net/http"
-	"strings"
+	"reflect"
 	"time"
 
 	"github.com/patrickmn/go-cache"
@@ -23,7 +22,13 @@ func init() {
 func do(endpoint string, obj interface{}) error {
 	cached, found := c.Get(endpoint)
 	if found && CacheSettings.UseCache {
-		return gob.NewDecoder(strings.NewReader(cached.(string))).Decode(obj)
+		v := reflect.ValueOf(obj)
+		if v.Kind() != reflect.Ptr {
+			return errors.New("obj must be a pointer")
+		}
+
+		v.Elem().Set(reflect.ValueOf(cached))
+		return nil
 	}
 
 	req, err := http.NewRequest(http.MethodGet, apiurl+endpoint, nil)
@@ -43,17 +48,13 @@ func do(endpoint string, obj interface{}) error {
 		return err
 	}
 
-	err = json.Unmarshal(body, &obj)
+	err = json.Unmarshal(body, obj)
 	if err != nil {
 		return err
 	}
 
-	buf := bytes.Buffer{}
-	err = gob.NewEncoder(&buf).Encode(obj)
-	if err != nil {
-		return err
-	}
-	setCache(endpoint, buf.String())
-
+	// trust it's a pointer, otherwise json.Unmarshal would fail
+	objValue := reflect.ValueOf(obj).Elem().Interface()
+	setCache(endpoint, objValue)
 	return nil
 }

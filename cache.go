@@ -33,11 +33,11 @@ func ClearCache() {
 }
 
 // setCache adds new item to local cache.
-func setCache(endpoint string, body string) {
+func setCache(endpoint string, obj interface{}) {
 	if CacheSettings.CustomExpire != 0 {
-		c.Set(endpoint, body, CacheSettings.CustomExpire)
+		c.Set(endpoint, obj, CacheSettings.CustomExpire)
 	} else {
-		c.SetDefault(endpoint, body)
+		c.SetDefault(endpoint, obj)
 	}
 }
 

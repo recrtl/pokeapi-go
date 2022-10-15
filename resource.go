@@ -36,11 +36,13 @@ func parseParams(params []int) (offset int, limit int) {
 	return
 }
 
-func parseSearch(results []structs.Result, search string) []structs.Result {
-	var x int
+func parseSearch(inputs []structs.Result, search string) []structs.Result {
 	var substr string
 
-	for _, result := range results {
+	// copy array to be compatible with object cache
+	results := make([]structs.Result, 0)
+
+	for _, result := range inputs {
 		if string(search[0]) == "^" {
 			substr = string(search[1:])
 			if len(substr) > len(result.Name) {
@@ -54,8 +56,8 @@ func parseSearch(results []structs.Result, search string) []structs.Result {
 				continue
 			}
 		}
-		results[x] = result
-		x++
+
+		results = append(results, result)
 	}
-	return results[:x]
+	return results
 }
