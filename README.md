@@ -1015,7 +1015,7 @@ Custom cache expiration remains for all calls until changed or unset.
 
 ```go
 // Set cache expiration to twenty minutes.
-pokeapi.CacheSettings.CustomExpire = 20
+pokeapi.CacheSettings.CustomExpire = 20 * time.Minute
 // Turn custom expiration back off.
 pokeapi.CacheSettings.CustomExpire = 0
 ```
