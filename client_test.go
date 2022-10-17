@@ -78,3 +78,24 @@ func TestNoCache(t *testing.T) {
 	assert.NotEqual(t, expires1, expires2,
 		"Expect cache expiration not to match first call.")
 }
+
+func TestURL(t *testing.T) {
+	ClearCache()
+
+	p, err := Pokemon("1")
+	assert.NoError(t, err)
+
+	speciesFromURL, err := URL[structs.PokemonSpecies](p.Species.URL)
+	assert.NoError(t, err)
+	speciesFromAPI, err := PokemonSpecies(p.Species.Name)
+	assert.NoError(t, err)
+
+	assert.Equal(t, speciesFromAPI, speciesFromURL)
+
+	evolFromURL, err := URL[structs.EvolutionChain](speciesFromAPI.EvolutionChain.URL)
+	assert.NoError(t, err)
+	evolFromAPI, err := EvolutionChain("1")
+	assert.NoError(t, err)
+
+	assert.Equal(t, evolFromAPI, evolFromURL)
+}

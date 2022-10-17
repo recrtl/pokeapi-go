@@ -3,9 +3,11 @@ package pokeapi
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"reflect"
+	"strings"
 	"time"
 
 	"github.com/patrickmn/go-cache"
@@ -57,4 +59,16 @@ func do(endpoint string, obj interface{}) error {
 	objValue := reflect.ValueOf(obj).Elem().Interface()
 	setCache(endpoint, objValue)
 	return nil
+}
+
+// URL returns a result from a url. Useful to follow resources.
+func URL[T any](url string) (result T, err error) {
+	if !strings.HasPrefix(url, apiurl) {
+		return result, fmt.Errorf("url %s is invalid", url)
+	}
+
+	url = strings.TrimPrefix(url, apiurl)
+	err = do(url, &result)
+
+	return result, err
 }
